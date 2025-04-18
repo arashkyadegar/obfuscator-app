@@ -1,0 +1,86 @@
+{
+  "type": "Program",
+  "start": 0,
+  "end": 76,
+  "body": [
+    {
+      "type": "VariableDeclaration",
+      "start": 15,
+      "end": 30,
+      "declarations": [
+        {
+          "type": "VariableDeclarator",
+          "start": 21,
+          "end": 29,
+          "id": {
+            "type": "Identifier",
+            "start": 21,
+            "end": 25,
+            "name": "num1"
+          },
+          "init": {
+            "type": "Literal",
+            "start": 28,
+            "end": 29,
+            "value": 5,
+            "raw": "5"
+          }
+        }
+      ],
+      "kind": "const"
+    },
+    {
+      "type": "VariableDeclaration",
+      "start": 32,
+      "end": 48,
+      "declarations": [
+        {
+          "type": "VariableDeclarator",
+          "start": 38,
+          "end": 47,
+          "id": {
+            "type": "Identifier",
+            "start": 38,
+            "end": 42,
+            "name": "num2"
+          },
+          "init": {
+            "type": "Literal",
+            "start": 45,
+            "end": 47,
+            "value": 10,
+            "raw": "10"
+          }
+        }
+      ],
+      "kind": "const"
+    },
+    {
+      "type": "VariableDeclaration",
+      "start": 50,
+      "end": 76,
+      "declarations": [
+        {
+          "type": "VariableDeclarator",
+          "start": 56,
+          "end": 75,
+          "id": {
+            "type": "Identifier",
+            "start": 56,
+            "end": 64,
+            "name": "userName"
+          },
+          "init": {
+            "type": "Literal",
+            "start": 67,
+            "end": 75,
+            "value": "Arashk",
+            "raw": "\"Arashk\""
+          }
+        }
+      ],
+      "kind": "const"
+    }
+  ],
+  "sourceType": "script"
+}

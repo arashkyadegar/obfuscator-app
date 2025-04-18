@@ -1,31 +1,31 @@
-import * as http from "http";
-import * as dotenv from "dotenv";
-import { readSampleFile } from "./src/File-Reader";
-import { acronParser } from "./src/Acorn-Parser";
+import { promises as fs } from "fs";
+import * as acorn from "acorn";
 
-// Load environment variables from .env file
-dotenv.config();
+// Import your custom traverse and fileWrite functions
+import { traverseAST } from "./src/Traverse-Node";
+import { fileWrite } from "./src/File-Writer";
 
-// Get the port from environment variables, with a fallback to 3000
-const PORT = process.env.PORT || 3000;
+const main = async () => {
+  try {
+    // Step 1: Read the JavaScript file
+    const filePath = "./source-files/sample.js";
+    const fileContent = await fs.readFile(filePath, "utf-8");
 
-// Create a simple HTTP server
-const server = http.createServer((req, res) => {
-  readSampleFile("./source-files/sample.js")
-    .then((file: string) => {
-      // Parse the file with Acorn and send AST as JSON response
-      const ast = acronParser(file);
-      res.writeHead(200, { "Content-Type": "application/json" });
-      res.end(JSON.stringify(ast, null, 2)); // Pretty-print the JSON output
-    })
-    .catch((err: Error) => {
-      // Handle file read errors
-      res.writeHead(500, { "Content-Type": "text/plain" });
-      res.end(`Error reading the file: ${err.message}`);
-    });
-});
+    // Step 2: Parse the file into an AST
+    const ast = acorn.parse(fileContent, { ecmaVersion: 2020 });
 
-// Start the server
-server.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+    // Step 3: Traverse the AST and log node types
+    traverseAST(ast, (node) => console.log(`Node type: ${node.type}`));
+
+    // Step 4: Save the AST to a JSON file
+    const outputPath = "./output-files/modified-code.json";
+    await fileWrite(ast, outputPath);
+
+    console.log(`AST saved successfully at ${outputPath}`);
+  } catch (error: any) {
+    console.error("An error occurred:", error.message);
+  }
+};
+
+// Execute the program
+main();
